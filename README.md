@@ -31,3 +31,22 @@ We hope this will help you to debug. Good luck!
 > Print: 329 (Debug：total_step = 74)
 > Print: 133 (Debug：total_step = 106)
 ```
+
+- My
+```
+123+456*789=
+> Print: 359907 (Debug：total_step = 14)
+
+
+9999+1000*52+60=
+> Print: 62059 (Debug：total_step = 20)
+
+
+9999+1000*52+60=/10+9-3*11+44=
+> Print: 62059 (Debug：total_step = 20)
+> Print: 6225 (Debug：total_step = 50)
+
+
+1+5*9++5+7=
+> idx_num<0, Index Error! Please check your input. --> exit(-1)
+```
