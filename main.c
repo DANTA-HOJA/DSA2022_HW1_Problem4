@@ -4,6 +4,8 @@
 #include <math.h> // floor, log2, pow
 #include <string.h>
 
+int prog_status=0;
+
 void Stack_Num_Printer(long long int *stack_num, int idx_num, const char *description){
     printf("\n%s, Display \" Stack_Num \", Current idx_Num = %d:\n\n", description, idx_num);
     printf(" head_(arry_idx = 10) --> ");
@@ -23,7 +25,6 @@ void Stack_Opr_Printer(char *stack_opr, int idx_opr, const char *description){
 }
 
 void Stack_Printer(long long int *stack_num, int idx_num, char *stack_opr, int idx_opr, const char *description){
-    int prog_status=0;
     prog_status = system("cls");
     Stack_Num_Printer(stack_num, idx_num, description);
     Stack_Opr_Printer(stack_opr, idx_opr, description);
