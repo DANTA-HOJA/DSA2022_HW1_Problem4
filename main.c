@@ -25,7 +25,7 @@ void Stack_Opr_Printer(char *stack_opr, int idx_opr, const char *description){
 }
 
 void Stack_Printer(long long int *stack_num, int idx_num, char *stack_opr, int idx_opr, const char *description){
-    prog_status = system("cls");
+    prog_status = system("clear");
     Stack_Num_Printer(stack_num, idx_num, description);
     Stack_Opr_Printer(stack_opr, idx_opr, description);
     printf("\n\n");
