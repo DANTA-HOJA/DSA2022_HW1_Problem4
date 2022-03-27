@@ -4,6 +4,8 @@
 #include <math.h> // floor, log2, pow
 #include <string.h>
 
+int shell_status=0;
+
 void Stack_Num_Printer(long long int *stack_num, int idx_num, const char *description){
     printf("\n%s, Display \" Stack_Num \", Current idx_Num = %d:\n\n", description, idx_num);
     printf(" head_(arry_idx = 10) --> ");
@@ -23,12 +25,12 @@ void Stack_Opr_Printer(char *stack_opr, int idx_opr, const char *description){
 }
 
 void Stack_Printer(int *step, long long int *stack_num, int idx_num, char *stack_opr, int idx_opr, const char *description){
-    system("cls");
+    shell_status = system("clear");
     *step = *step+1; printf("==> total_step = %d\n", *step);
     Stack_Num_Printer(stack_num, idx_num, description);
     Stack_Opr_Printer(stack_opr, idx_opr, description);
     printf("\n\n");
-    system("pause");
+    shell_status = system("pause");
 }
 
 int Num_c2i(char *c_num){ // 0 <= ai <= 10^8 => int is enough (range of int => -2,147,483,648 to 2,147,483,647)
@@ -95,31 +97,31 @@ int Pop_Calcu(int *step, long long int *stack_num, int *idx_num, char *stack_opr
     // pop top number in Stack_Num -> set 0 -> go down
     long long int b = stack_num[*idx_num]; stack_num[*idx_num]=0; *idx_num = *idx_num-1;
     if(*idx_num<0){ printf("\nidx_num<0, Index Error! Please check your input. --> exit(-1)\n"); exit(-1);} // exit(-1) = program stop abnormally
-    printf("\nPop TOP Num = %lld\n", b); system("pause");
+    printf("\nPop TOP Num = %lld\n", b); shell_status = system("pause");
     Stack_Printer(step, stack_num, *idx_num, stack_opr, *idx_opr, "After Number Pop -> set 0 -> go down");
 
 
     // pop second number in Stack_Num -> set 0 -> go down
     long long int a = stack_num[*idx_num]; stack_num[*idx_num]=0; *idx_num = *idx_num-1;
     if(*idx_num<0){ printf("\nidx_num<0, Index Error! Please check your input. --> exit(-1)\n"); exit(-1);} // exit(-1) = program stop abnormally
-    printf("\nPop Second Num = %lld\n", a); system("pause");
+    printf("\nPop Second Num = %lld\n", a); shell_status = system("pause");
     Stack_Printer(step, stack_num, *idx_num, stack_opr, *idx_opr, "After Number Pop -> set 0 -> go down");
 
 
     // pop top operator in Stack_Opr -> set '\0' -> go down
     char top_operator = stack_opr[*idx_opr]; stack_opr[*idx_opr]='\0'; *idx_opr = *idx_opr-1;
-    printf("\nPop TOP Opr = %c\n", top_operator); system("pause");
+    printf("\nPop TOP Opr = %c\n", top_operator); shell_status = system("pause");
     Stack_Printer(step, stack_num, *idx_num, stack_opr, *idx_opr, "After Operator Pop -> set '\\0' -> go down");
     
 
     long long int new_Num = Do_Opr(a, b, top_operator);
-    printf("\nCalculated 2 pop_out number, new_Num = %lld\n", new_Num); system("pause");
+    printf("\nCalculated 2 pop_out number, new_Num = %lld\n", new_Num); shell_status = system("pause");
 
 
     // push calculate result to stack_num
     *idx_num = *idx_num+1;
     stack_num[*idx_num] = new_Num; // push "new Number" to Stack_Num
-    printf("\nPush new_Num, Stack_Num[%d] = %lld\n", *idx_num, stack_num[*idx_num]); system("pause");
+    printf("\nPush new_Num, Stack_Num[%d] = %lld\n", *idx_num, stack_num[*idx_num]); shell_status = system("pause");
     Stack_Printer(step, stack_num, *idx_num, stack_opr, *idx_opr, "After push \"new_Num\"");
 
 }
@@ -154,46 +156,46 @@ long long int Calcu_Cell(int *step){
         // DO: push Number to Stack
         int nxt_Num = Num_c2i(c_Num); // change input char to integer
         if(nxt_Num!=0){ // input number isn't 0
-            printf("\nget next Num, nxt_Num = %d\n", nxt_Num); system("pause");
+            printf("\nget next Num, nxt_Num = %d\n", nxt_Num); shell_status = system("pause");
             idx_Num++; // Stack_Num shift up
             Stack_Num[idx_Num] = (long long int)nxt_Num; // push "next Number" to Stack_Num
-            printf("\nPush nxt_Num, Stack_Num[%d] = %lld\n", idx_Num, Stack_Num[idx_Num]); system("pause");
+            printf("\nPush nxt_Num, Stack_Num[%d] = %lld\n", idx_Num, Stack_Num[idx_Num]); shell_status = system("pause");
             Stack_Printer(step, Stack_Num, idx_Num, Stack_Opr, idx_Opr, "After push \"nxt_Num\"");
         }
 
         // DO: push Operator to Stack
         char nxt_Opr = LISA_IN;
-        printf("\nget next Opr, nxt_Opr is \"%c\"\n", nxt_Opr); system("pause");
+        printf("\nget next Opr, nxt_Opr is \"%c\"\n", nxt_Opr); shell_status = system("pause");
 
         if(LISA_IN == '\n'){break;} // end of input
 
         if(LISA_IN == '('){
-            printf("\nnxt_Opr is \"%c\", create new \"Calcu_Cell()\"\n", nxt_Opr); system("pause");
+            printf("\nnxt_Opr is \"%c\", create new \"Calcu_Cell()\"\n", nxt_Opr); shell_status = system("pause");
 
             long long int parentheses_Ans = Calcu_Cell(step);
-            printf("\nget parentheses answer , parentheses_Ans = %lld\n", parentheses_Ans); system("pause");
+            printf("\nget parentheses answer , parentheses_Ans = %lld\n", parentheses_Ans); shell_status = system("pause");
             idx_Num++; // Stack_Num shift up
             Stack_Num[idx_Num] = parentheses_Ans; // push "next Number" to Stack_Num
-            printf("\nPush parentheses_Ans, Stack_Num[%d] = %lld\n", idx_Num, Stack_Num[idx_Num]); system("pause");
+            printf("\nPush parentheses_Ans, Stack_Num[%d] = %lld\n", idx_Num, Stack_Num[idx_Num]); shell_status = system("pause");
             Stack_Printer(step, Stack_Num, idx_Num, Stack_Opr, idx_Opr, "After push \"parentheses_Ans\"");
             continue;
         }
 
         if(LISA_IN == ')'){
-            printf("\nnxt_Opr is \"%c\", Calculate parentheses answer & close \"Calcu_Cell()\"\n", nxt_Opr); system("pause");
+            printf("\nnxt_Opr is \"%c\", Calculate parentheses answer & close \"Calcu_Cell()\"\n", nxt_Opr); shell_status = system("pause");
 
             while(idx_Opr>0){ // Operator remained
-                printf("\nOperator remained, DO \"Pop_Calcu()\"!\n"); system("pause");
+                printf("\nOperator remained, DO \"Pop_Calcu()\"!\n"); shell_status = system("pause");
                 Pop_Calcu(step, Stack_Num, &idx_Num, Stack_Opr, &idx_Opr);
             }
             return Stack_Num[idx_Num];
         }
 
         if(nxt_Opr == '='){ // if read "=" -> calculate for all operator
-            printf("\nnxt_Opr is \"%c\", calculate \"partial answer\"\n", nxt_Opr); system("pause");
+            printf("\nnxt_Opr is \"%c\", calculate \"partial answer\"\n", nxt_Opr); shell_status = system("pause");
 
             while(idx_Opr>0){ // Operator remained
-                printf("\nOperator remained, DO \"Pop_Calcu()\"!\n"); system("pause");
+                printf("\nOperator remained, DO \"Pop_Calcu()\"!\n"); shell_status = system("pause");
                 Pop_Calcu(step, Stack_Num, &idx_Num, Stack_Opr, &idx_Opr);
             }
             Ans = Stack_Num[idx_Num]; // store final calculation to Ans
@@ -203,33 +205,33 @@ long long int Calcu_Cell(int *step){
             
             if(Stack_Opr[idx_Opr] == '\0'){ 
                 
-                printf("\n\"Stack_Opr\" is NULL, can push nxt_Opr directly\n"); system("pause");
+                printf("\n\"Stack_Opr\" is NULL, can push nxt_Opr directly\n"); shell_status = system("pause");
                 idx_Opr++;
                 Stack_Opr[idx_Opr] = nxt_Opr;
-                printf("\nPush nxt_Opr, Stack_Opr[%d] = %c\n", idx_Opr, Stack_Opr[idx_Opr]); system("pause");
+                printf("\nPush nxt_Opr, Stack_Opr[%d] = %c\n", idx_Opr, Stack_Opr[idx_Opr]); shell_status = system("pause");
                 Stack_Printer(step, Stack_Num, idx_Num, Stack_Opr, idx_Opr, "After push \"nxt_Opr\"");
             }
             else{ 
 
-                printf("\n\"Stack_Opr\" is NOT! NULL, compare Priority\n"); system("pause");
+                printf("\n\"Stack_Opr\" is NOT! NULL, compare Priority\n"); shell_status = system("pause");
                 int nxt_Opr_prio = Compare_Prio(nxt_Opr);
                 int top_Opr_prio = Compare_Prio(Stack_Opr[idx_Opr]);
                 printf("\nnxt_Opr is %c, Priority = %d\n", nxt_Opr, nxt_Opr_prio);
-                printf("\ntop_Opr is %c, Priority = %d\n", Stack_Opr[idx_Opr], top_Opr_prio); system("pause");
+                printf("\ntop_Opr is %c, Priority = %d\n", Stack_Opr[idx_Opr], top_Opr_prio); shell_status = system("pause");
 
                 while((nxt_Opr_prio <= top_Opr_prio) && idx_Opr>0){
 
-                    printf("\nnxt_Opr_prio <= top_Opr_prio, can DO \"Pop_Calcu()\"!\n"); system("pause");
+                    printf("\nnxt_Opr_prio <= top_Opr_prio, can DO \"Pop_Calcu()\"!\n"); shell_status = system("pause");
                     Pop_Calcu(step, Stack_Num, &idx_Num, Stack_Opr, &idx_Opr);
                     top_Opr_prio = Compare_Prio(Stack_Opr[idx_Opr]); // recheck Operator now on the top of Stack_Opr
                     printf("\nnxt_Opr is %c, Priority = %d\n", nxt_Opr, nxt_Opr_prio);
-                    printf("\ntop_Opr is %c, Priority = %d\n", Stack_Opr[idx_Opr], top_Opr_prio); system("pause");
+                    printf("\ntop_Opr is %c, Priority = %d\n", Stack_Opr[idx_Opr], top_Opr_prio); shell_status = system("pause");
                 }
 
-                printf("\n( nxt_Opr_prio NOT! <= top_Opr_prio ) || ( idx_Opr NOT! > 0 ), CAN'T DO \"Pop_Calcu()\"!\n"); system("pause");
+                printf("\n( nxt_Opr_prio NOT! <= top_Opr_prio ) || ( idx_Opr NOT! > 0 ), CAN'T DO \"Pop_Calcu()\"!\n"); shell_status = system("pause");
                 idx_Opr++;
                 Stack_Opr[idx_Opr] = nxt_Opr;
-                printf("\nPush nxt_Opr, Stack_Opr[%d] = %c\n", idx_Opr, Stack_Opr[idx_Opr]); system("pause");
+                printf("\nPush nxt_Opr, Stack_Opr[%d] = %c\n", idx_Opr, Stack_Opr[idx_Opr]); shell_status = system("pause");
                 Stack_Printer(step, Stack_Num, idx_Num, Stack_Opr, idx_Opr, "After push \"nxt_Opr\"");
             }
         }

@@ -4,7 +4,7 @@
 #include <math.h> // floor, log2, pow
 #include <string.h>
 
-int prog_status=0;
+int shell_status=0;
 
 void Stack_Num_Printer(long long int *stack_num, int idx_num, const char *description){
     printf("\n%s, Display \" Stack_Num \", Current idx_Num = %d:\n\n", description, idx_num);
@@ -25,11 +25,11 @@ void Stack_Opr_Printer(char *stack_opr, int idx_opr, const char *description){
 }
 
 void Stack_Printer(long long int *stack_num, int idx_num, char *stack_opr, int idx_opr, const char *description){
-    prog_status = system("clear");
+    shell_status = system("clear");
     Stack_Num_Printer(stack_num, idx_num, description);
     Stack_Opr_Printer(stack_opr, idx_opr, description);
     printf("\n\n");
-    prog_status = system("pause");
+    shell_status = system("pause");
 }
 
 int Num_c2i(char *c_num){ // 0 <= ai <= 10^8 => int is enough (range of int => -2,147,483,648 to 2,147,483,647)
