@@ -23,11 +23,12 @@ void Stack_Opr_Printer(char *stack_opr, int idx_opr, const char *description){
 }
 
 void Stack_Printer(long long int *stack_num, int idx_num, char *stack_opr, int idx_opr, const char *description){
-    system("cls");
+    int prog_status=0;
+    prog_status = system("cls");
     Stack_Num_Printer(stack_num, idx_num, description);
     Stack_Opr_Printer(stack_opr, idx_opr, description);
     printf("\n\n");
-    system("pause");
+    prog_status = system("pause");
 }
 
 int Num_c2i(char *c_num){ // 0 <= ai <= 10^8 => int is enough (range of int => -2,147,483,648 to 2,147,483,647)
